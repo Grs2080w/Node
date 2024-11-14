@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploads com Formidable</title>
+    <style>
+
+        *{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        main {
+            margin: auto;
+            width: 70vw;
+            max-width: 500px;
+            min-width: 250px;
+            background-color: cadetblue;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin: auto;
+            width: 200px;
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+            border: 2px dashed black;
+        }
+
+        label:hover {
+            border: 2px dashed cadetblue;
+            color: cadetblue;
+        }
+
+
+        #file {
+            display: none;
+            margin: auto;
+            width: 200px;
+            
+        }
+
+        #env {
+            display: block;
+            padding: 5px;
+            margin: auto;
+            margin-top: 30px;
+            width: 100px;
+            border-radius: 5px;
+        }
+
+        #env:hover {
+            color: white;
+            background-color: rgb(54, 90, 92);
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <form action="envioDeArquivo" method="post" enctype="multipart/form-data">
+
+            <label id="lab" for="file">Cole aqui Sua Imagem</label>
+            <input type="file" name="filetoupload" id="file"><br>
+            <input id="env" type="submit" value="Enviar">
+        </form>
+    </main>
+
+
+    <script>
+        const file = document.getElementById('file')
+        const label = document.getElementById('lab')
+
+        file.addEventListener('input', (input)=>{
+            const text = file.value.slice(11, (file.value).lenght)
+            label.innerHTML = text
+        })
+
+    </script>
+</body>
+</html>

@@ -9,7 +9,7 @@ const fs = require('fs')
 app.get('/teste', (req, res)=>{
     fs.readFile('erro.html', (err, arq)=>{
         res.set({'Content-Type':'*/*'}) // Seta o header
-        res.status(404).send('oi') // Envia uma mensagem de erro personalizada
+        res.status(404).send(arq) // Envia uma mensagem de erro personalizada
     })
     
 })
