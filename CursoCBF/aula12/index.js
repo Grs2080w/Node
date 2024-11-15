@@ -6,16 +6,17 @@ const fs = require("fs")
 
 app.post('/envioDeArquivo', (req, res) =>{
 
-        const form = new formidable.IncomingForm()
+        const form = new formidable.IncomingForm() // Chama a instância de formidable
 
-        form.parse(req, (erro, campos, arquivos) => {
+        form.parse(req, (erro, campos, arquivos) => {  // Permite ler os arquivos recebidos no request
 
-            if (erro) throw erro
+            if (erro) throw erro // Mostra erro se houver algum
 
             const urlantiga = arquivos.filetoupload[0].filepath
             const urlnova = 'C:/Users/Gabriel Santos/OneDrive/Desktop/' + arquivos.filetoupload[0].originalFilename
+
             fs.rename(urlantiga, urlnova, (err) => {
-                if (err) {res.status(400).send('Algo deu errado no envio de arquivos!')}
+                if (err) {console.log('Erro ao Renomear/Mover arquivo.')}
 
                 fs.readFile('sucess.html', (err, arq) =>{
                     if (err) throw err
