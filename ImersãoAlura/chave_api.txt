@@ -1,0 +1,6 @@
+chaveApiGemini = AIzaSyBnV1CGWTov3083M7N3fB8MzJ41wsiznoY
+
+usuário = gabrielsnts
+senha = TzGN8SAZ5QAShjTC
+
+stringConexão = mongodb+srv://gabrielsnts:TzGN8SAZ5QAShjTC@cluster0.y2g65.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
