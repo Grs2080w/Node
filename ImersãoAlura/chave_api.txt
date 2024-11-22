@@ -1,6 +1,6 @@
-chaveApiGemini = AIzaSyBnV1CGWTov3083M7N3fB8MzJ41wsiznoY
+chaveApiGemini = ###################################
 
 usuário = gabrielsnts
-senha = TzGN8SAZ5QAShjTC
+senha = ##################
 
-stringConexão = mongodb+srv://gabrielsnts:TzGN8SAZ5QAShjTC@cluster0.y2g65.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+stringConexão = mongodb+srv://gabrielsnts:#############@cluster0.y2g65.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
