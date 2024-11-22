@@ -1,59 +1,12 @@
-import express from 'express'
-const app = express();
+import express from 'express'; // Importa o framework Express
+import routes from './src/route/postRoutes.js'; // Importa as rotas definidas
 
-app.use(express.json());
+const app = express(); // Cria uma instância da aplicação Express
 
-//Mock
-const posts = [
-    {
-      id: 1,
-      descricao: 'Uma foto de um gato',
-      imagem: "https://placecats.com/200/300"
-    },
-    {
-      id: 2,
-      descricao: 'Uma paisagem bonita',
-      imagem: "https://picsum.photos/id/237/200/300"
-    },
-    {
-      id: 3,
-      descricao: 'Um prato delicioso',
-      imagem: "https://picsum.photos/id/237/200/300"
-    },
-    {
-      id: 4,
-      descricao: 'Uma cidade vibrante',
-      imagem: "https://picsum.photos/id/237/200/300"
-    },
-    {
-      id: 5,
-      descricao: 'Um carro esportivo',
-      imagem: "https://picsum.photos/id.237/200/300"
-    },
-    {
-        id:5000,
-        descricao:"Este post não existe."
-    }
-  ];
+// Monta as rotas definidas na aplicação Express
+routes(app);
 
-
-app.get('/posts', (req, res) =>{
-    res.status(200).json(posts)
-})
-
-// Busca dentro do array qual objeto possui o mesmo id do requisitado e retorna esse id.
-function buscaPost(id){
-    return posts.findIndex((post)=>{
-        return post.id === Number(id)
-    })
-}
-
-app.get("/posts/:id", (req,res)=>{
-
-    let id_post = req.params.id // Paramentro da requisição
-    const index = buscaPost(id_post) // Busca id_post no array
-    res.status(200).json(posts[index])
-    
-})
-
-app.listen(3000, ()=>{console.log('Server Conected on Port 3000');});
+// Inicia o servidor na porta 3000 e loga uma mensagem no console
+app.listen(3000, () => {
+  console.log('Servidor Conectado na Porta 3000');
+});
