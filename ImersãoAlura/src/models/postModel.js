@@ -1,4 +1,5 @@
 import conexaoBD from "../config/dbConfig.js";
+import { ObjectId } from "mongodb";
 
 // Estabelece a conexão com o banco de dados MongoDB usando as informações da string de conexão.
 const conexao = await conexaoBD(process.env.STRING_CONEXAO);
@@ -19,6 +20,30 @@ export async function criarPost(novoPost) {
     // Insere o novo post na coleção e retorna o resultado da operação
     return colecao.insertOne(novoPost);
   }
+
+
+  export async function atualizaPost(id, post) {
+    // Conecta ao banco de dados 'firstable'
+    const db = conexao.db('firstable');
+    // Seleciona a coleção 'posts'
+    const colecao = db.collection('posts');
+
+
+    try {
+      // Tranforma o id em binario para que o mongoDB posa entender.
+      const objId = ObjectId.createFromHexString( id )
+      // Seleciona qual o id, e qual objeto o mongoDB irá setar para a atualização
+      return colecao.updateOne({_id:new ObjectId(objId)}, {$set:post});
+
+    }catch(err) {
+      console.log(err)
+      resizeBy.status(500).send({"erro":"Houve erro na requisição."})
+    }
+    
+  }
+
+
+
 
   // Este módulo fornece funções para interagir com a coleção 'posts' no banco de dados MongoDB 'firstable'.
 //

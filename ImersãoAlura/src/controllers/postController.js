@@ -1,5 +1,6 @@
-import {getPosts, criarPost} from "../models/postModel.js";
+import {getPosts, criarPost, atualizaPost} from "../models/postModel.js";
 import fs from "fs"
+import { gerarDescricaoComGemini , gerarAltComGemini} from "../services/geminiService.js"
 
 export  async function listarPosts (req, res) {
     // Chama a função getPosts() para obter os posts do banco de dados.
@@ -12,7 +13,7 @@ export  async function listarPosts (req, res) {
 // Função assíncrona para criar um novo post
 export async function postarNovoPost(req, res) {
    // Extrai os dados do corpo da requisição para criar um novo post
-   const novoPost = req.body; 
+   const novoPost = req.body;
  
    // Bloco try...catch para tratar possíveis erros
    try {
@@ -34,7 +35,7 @@ export async function postarNovoPost(req, res) {
  export async function uploadImagem(req, res) {
    // Cria um objeto com os dados básicos do novo post, incluindo o nome original da imagem
    const novoPost = {
-     descricão: "",
+     descricao: "",
      imgUrl: req.file.originalname,
      alt:""
    };
@@ -60,6 +61,35 @@ export async function postarNovoPost(req, res) {
      res.status(500).send({"erro":"Houve erro na requisição :("})
    }
  }
+
+
+ export async function atualizaNovoPost(req, res) {
+    const id = req.params.id
+    const url_imagem = `htttp://localhost:3000/${id}.png`
+
+    try {
+      fs.readFile(`uploads/${id}.png`, async (err, arq)=>{
+        const desc = await gerarDescricaoComGemini(arq)
+        const alt = await gerarAltComGemini(arq)
+
+        const  post = {
+          imgUrl: url_imagem,
+          descricao: desc,
+          alt: req.body.alt
+        }
+
+        const postAtualizado = await atualizaPost(id, post);
+        res.status(200).send(postAtualizado);
+      })
+
+    } catch(err) {
+      console.error(err.message)
+      res.status(500).send("Erro, falha na requisição.")
+
+    }
+ }
+
+
 
  // Este módulo contém as rotas para gerenciar posts, incluindo listar todos os posts, criar novos posts e fazer upload de imagens.
 // As funções dependem das funções `getPosts` e `criarPost` definidas em `postModel.js` para interagir com o banco de dados.
